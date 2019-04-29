@@ -3,12 +3,15 @@
 
     <item
         android:id="@+id/navigation_menu1"
-        android:title="@string/menu1" />
+        android:icon="@drawable/ic_new_wordcloud"
+        android:title="@string/generate_wordcloud" />
     <item
         android:id="@+id/navigation_menu2"
-        android:title="@string/menu2" />
+        android:icon="@drawable/ic_gallery"
+        android:title="@string/gallery" />
+
     <item
         android:id="@+id/navigation_menu3"
-
-        android:title="@string/menu3" />
+        android:icon="@drawable/ic_about"
+        android:title="About" />
 </menu>

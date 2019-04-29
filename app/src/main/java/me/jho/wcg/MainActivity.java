@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import me.jho.wcg.fragment.Menu1Fragment;
 import me.jho.wcg.fragment.Menu2Fragment;
-import me.jho.wcg.fragment.Menu3Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private Menu1Fragment menu1Fragment;
     private Menu2Fragment menu2Fragment;
-    private Menu3Fragment menu3Fragment;
+    private Menu2Fragment menu3Fragment;
 
     // BottomNavigationView
     BottomNavigationView bottomNavigationView;
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         menu1Fragment = new Menu1Fragment();
         menu2Fragment = new Menu2Fragment();
-        menu3Fragment = new Menu3Fragment();
+        menu3Fragment = new Menu2Fragment();
         // [END Fragments]
 
         // [START bottomNavigationView]
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = menu3Fragment;
                         break;
                     default:
-                        return false;
+                        return true;
                 }
 
                 fragmentTransaction.replace(R.id.frame_layout, (Fragment) fragment).commitAllowingStateLoss();
