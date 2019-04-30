@@ -10,8 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import me.jho.wcg.fragment.Menu1Fragment;
-import me.jho.wcg.fragment.Menu2Fragment;
+import me.jho.wcg.fragment.InfoFragment;
+import me.jho.wcg.fragment.WordCloudFragment;
+import me.jho.wcg.fragment.GalleryFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Fragment variables
     private FragmentManager fragmentManager;
-    private Menu1Fragment menu1Fragment;
-    private Menu2Fragment menu2Fragment;
-    private Menu2Fragment menu3Fragment;
+    private WordCloudFragment wordCloudFragment;
+    private GalleryFragment galleryFragment;
+    private InfoFragment infoFragment;
 
     // BottomNavigationView
     BottomNavigationView bottomNavigationView;
@@ -35,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         // [START Fragments]
         fragmentManager = getSupportFragmentManager();
-        menu1Fragment = new Menu1Fragment();
-        menu2Fragment = new Menu2Fragment();
-        menu3Fragment = new Menu2Fragment();
+        wordCloudFragment = new WordCloudFragment();
+        galleryFragment = new GalleryFragment();
+        infoFragment = new InfoFragment();
         // [END Fragments]
 
         // [START bottomNavigationView]
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set First Fragment
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, menu1Fragment).commitAllowingStateLoss();
+        fragmentTransaction.replace(R.id.frame_layout, wordCloudFragment).commitAllowingStateLoss();
 
         // Set EventListener to call Fragment when bottomNavigationView clicked
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -53,16 +54,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 fragmentTransaction = fragmentManager.beginTransaction();
 
-                Object fragment = menu1Fragment;
+                Object fragment = wordCloudFragment;
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_menu1:
-                        fragment = menu1Fragment;
+                        fragment = wordCloudFragment;
                         break;
                     case R.id.navigation_menu2:
-                        fragment = menu2Fragment;
+                        fragment = galleryFragment;
                         break;
                     case R.id.navigation_menu3:
-                        fragment = menu3Fragment;
+                        fragment = infoFragment;
                         break;
                     default:
                         return true;

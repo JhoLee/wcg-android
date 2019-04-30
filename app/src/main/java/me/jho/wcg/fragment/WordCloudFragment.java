@@ -10,12 +10,13 @@ import android.view.ViewGroup;
 
 import me.jho.wcg.R;
 
-public class Menu1Fragment extends Fragment {
+public class WordCloudFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View menu1View = inflater.inflate(R.layout.fragment_menu1, container, false);
+        View wordCloudView = inflater.inflate(R.layout.fragment_menu1, container, false);
 
-        return menu1View;
+
+        return wordCloudView;
     }
 }

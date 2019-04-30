@@ -10,12 +10,13 @@ import android.view.ViewGroup;
 
 import me.jho.wcg.R;
 
-public class Menu2Fragment extends Fragment {
+public class InfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View menu2View = inflater.inflate(R.layout.fragment_menu2, container, false);
+        View infoView = inflater.inflate(R.layout.fragment_menu2, container, false);
 
-        return menu2View;
+
+        return infoView;
     }
 }
