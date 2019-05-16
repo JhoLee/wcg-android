@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
 import me.jho.wcg.R;
 
 public class GalleryFragment extends Fragment {
@@ -15,6 +16,7 @@ public class GalleryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View galleryView = inflater.inflate(R.layout.fragment_menu2, container, false);
+        ButterKnife.bind(this, galleryView);
 
 
         return galleryView;
