@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.jho.wcg.fragment.InfoFragment;
 import me.jho.wcg.fragment.WordCloudFragment;
 import me.jho.wcg.fragment.GalleryFragment;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private InfoFragment infoFragment;
 
     // BottomNavigationView
+    @BindView(R.id.bottom_navigation_view)
     BottomNavigationView bottomNavigationView;
     FragmentTransaction fragmentTransaction;
 
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         // [START Fragments]
         fragmentManager = getSupportFragmentManager();
@@ -42,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         // [END Fragments]
 
         // [START bottomNavigationView]
-        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         // Set First Fragment
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -53,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 fragmentTransaction = fragmentManager.beginTransaction();
-
                 Object fragment = wordCloudFragment;
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_menu1:
@@ -68,13 +70,10 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         return true;
                 }
-
                 fragmentTransaction.replace(R.id.frame_layout, (Fragment) fragment).commitAllowingStateLoss();
                 return true;
             }
         });
-
         // [END bottomNavigationView]
     }
-
 }
