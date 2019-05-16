@@ -9,15 +9,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.jho.wcg.R;
 
 public class InfoFragment extends Fragment {
+
+    private Unbinder unbinder;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View infoView = inflater.inflate(R.layout.fragment_menu2, container, false);
-        ButterKnife.bind(this, infoView);
+        unbinder = ButterKnife.bind(this, infoView);
 
         return infoView;
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
