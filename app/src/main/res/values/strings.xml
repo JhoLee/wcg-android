@@ -5,4 +5,11 @@
     <string name="title_notifications">Notifications</string>
     <string name="gallery">Gallery</string>
     <string name="generate_wordcloud">WordCloud</string>
+    <string name="textView_title">Title</string>
+    <string name="ENTER_TITLE_HERE">여기에 제목 입력</string>
+    <string name="textView_data">Data</string>
+    <string name="ENTER_DATA_HERE">여기에 내용 입력</string>
+    <string name="mask_image">Mask Image</string>
+    <string name="LOAD_IMAGE">이미지 불러오기...</string>
+    <string name="GENERATE">만들기</string>
 </resources>
