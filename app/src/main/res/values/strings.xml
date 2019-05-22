@@ -12,4 +12,5 @@
     <string name="mask_image">Mask Image</string>
     <string name="LOAD_IMAGE">이미지 불러오기...</string>
     <string name="GENERATE">만들기</string>
+    <string name="textView_font">Font</string>
 </resources>

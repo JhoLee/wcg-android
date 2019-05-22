@@ -109,6 +109,7 @@
             android:id="@+id/spinner_font"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/textView_font"
             app:layout_constraintRight_toRightOf="parent"
