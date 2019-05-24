@@ -18,7 +18,7 @@ public class WordCloudFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View wordCloudView = inflater.inflate(R.layout.fragment_menu1, container, false);
+        View wordCloudView = inflater.inflate(R.layout.fragment_wordcloud, container, false);
         unbinder = ButterKnife.bind(this, wordCloudView);
 
 
