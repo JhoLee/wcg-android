@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +17,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.CursorLoader;
+import android.support.v7.app.AppCompatDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -75,6 +80,7 @@ public class WordCloudFragment extends Fragment {
 
 
     private File tempFile;
+    private AppCompatDialog progressDialog;
 
 
     //[START onCreateView]
@@ -152,6 +158,8 @@ public class WordCloudFragment extends Fragment {
         imageView.setImageBitmap(bitmap);
         Log.d("setImage", "Image set.");
 
+        progressOFF();
+        //end Loading
     }
     // [END setImage]
 
@@ -229,6 +237,9 @@ public class WordCloudFragment extends Fragment {
         }
         // [END prepare_multi_part]
 
+        progressON(wordCloudActivity,null);
+        //[START loading]
+
         // [START send_data_and_receive]
         WcgService wcgService = WcgRetrofit.getWcgRetrofit().create(WcgService.class);
 
@@ -257,11 +268,13 @@ public class WordCloudFragment extends Fragment {
         // [END send_data_and_receive]
 
 
+
         // TODO: Receive result image from server
 
 
     }
     // [END generateWordCloud]
+
 
     // [START createPartFromString]
     @NonNull
@@ -294,9 +307,65 @@ public class WordCloudFragment extends Fragment {
         cursor.moveToFirst();
         String result = cursor.getString(column_index);
         cursor.close();
+
+
         return result;
     }
     // [END getRealPathFromUri]
 
+
+    public void progressON(Activity activity, String message) {
+
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+
+
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressSET(message);
+        } else {
+
+            progressDialog = new AppCompatDialog(activity);
+            progressDialog.setCancelable(false);
+            progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            progressDialog.setContentView(R.layout.progress_loading);
+            progressDialog.show();
+
+        }
+
+
+        final ImageView img_loading_frame = (ImageView) progressDialog.findViewById(R.id.iv_frame_loading);
+        final AnimationDrawable frameAnimation = (AnimationDrawable) img_loading_frame.getBackground();
+        img_loading_frame.post(new Runnable() {
+            @Override
+            public void run() {
+                frameAnimation.start();
+            }
+        });
+
+        TextView tv_progress_message = (TextView) progressDialog.findViewById(R.id.tv_progress_message);
+        if (!TextUtils.isEmpty(message)) {
+            tv_progress_message.setText(message);
+        }
+
+
+    }
+    public void progressSET(String message) {
+
+        if (progressDialog == null || !progressDialog.isShowing()) {
+            return;
+        }
+
+        TextView tv_progress_message = (TextView) progressDialog.findViewById(R.id.tv_progress_message);
+        if (!TextUtils.isEmpty(message)) {
+            tv_progress_message.setText(message);
+        }
+
+    }
+    public void progressOFF() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
 
 }

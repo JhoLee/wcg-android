@@ -26,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private GalleryFragment galleryFragment;
     private InfoFragment infoFragment;
 
+
     // BottomNavigationView
     @BindView(R.id.bottom_navigation_view)
     BottomNavigationView bottomNavigationView;
     FragmentTransaction fragmentTransaction;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,4 +76,6 @@ public class MainActivity extends AppCompatActivity {
         });
         // [END bottomNavigationView]
     }
+
+
 }
