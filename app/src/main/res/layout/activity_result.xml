@@ -18,6 +18,15 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Save Image"
+            app:layout_constraintBottom_toTopOf="@id/constraintLayout_resultTitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView_result" />
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout_resultTitle"
             android:layout_width="match_parent"
@@ -25,7 +34,7 @@
             app:layout_constraintBottom_toTopOf="@id/constraintLayout_resultData"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView_result">
+            app:layout_constraintTop_toBottomOf="@+id/button_save">
 
             <TextView
                 android:id="@+id/textView_resultTitle"
