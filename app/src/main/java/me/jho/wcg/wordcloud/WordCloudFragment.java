@@ -418,22 +418,45 @@ public class WordCloudFragment extends Fragment {
 
         db = sqLiteHelper.getWritableDatabase();
 
-        SQLiteStatement sql = db.compileStatement("INSERT INTO wordcloud VALUES(?, ?, ?, ?, ?);");
+        SQLiteStatement sql = db.compileStatement("INSERT INTO wordcloud VALUES(null, ?, ?, ?, ?, ?);");
 
         sql.bindString(1, title);
         sql.bindString(2, data);
         sql.bindString(3, font);
-        sql.bindBlob(4, maskImageByte);
-        sql.bindBlob(5, wordCloudByte);
+        if (maskImageByte != null)
+            sql.bindBlob(4, maskImageByte);
+        if (wordCloudByte != null)
+            sql.bindBlob(5, wordCloudByte);
 
         long rowId = sql.executeInsert();
         Log.d("saveResult", "Result saved into DB. (row: + " + rowId + ")");
+        showResult(rowId);
 
     }
     // [END saveResult]
 
-    // [START getImage]
-    // [END getImage]
+    // [START selectResult]
+    public Cursor selectResult(int id) {
+        String sql = "SELECT * FROM wordcloud WHERE _id = " + id + ";";
+        Cursor result = db.rawQuery(sql, null);
+
+        return result;
+
+    }
+    // [END selectResult]
+
+    // [START showResult]
+    public void showResult(long rowId) {
+        Intent resultIntent = new Intent(
+                wordCloudContext,
+                ResultActivity.class
+        );
+
+        resultIntent.putExtra("rowId", rowId);
+
+        startActivity(resultIntent);
+    }
+    // [END showResult]
 
 
     public void progressON(Activity activity, String message) {
@@ -491,5 +514,6 @@ public class WordCloudFragment extends Fragment {
             progressDialog.dismiss();
         }
     }
+
 
 }

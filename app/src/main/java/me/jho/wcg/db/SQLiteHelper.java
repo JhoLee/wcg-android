@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     public static final String NAME = "wcg.db";
-    public static final int VERSION = 1;
+    public static final int VERSION = 3;
 
     public static final String IDX = "IDX";
 
@@ -19,7 +19,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE if not exists wordcloud (title TEXT, data TEXT, font TEXT, mask_image BLOB, wordcloud BLOB);");
+        db.execSQL("CREATE TABLE if not exists wordcloud (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, data TEXT, font TEXT, mask_image BLOB, wordcloud BLOB);");
 
     }
 
