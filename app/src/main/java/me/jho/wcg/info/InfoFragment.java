@@ -18,7 +18,7 @@ public class InfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View infoView = inflater.inflate(R.layout.fragment_menu2, container, false);
+        View infoView = inflater.inflate(R.layout.fragment_gallery, container, false);
         unbinder = ButterKnife.bind(this, infoView);
 
         return infoView;

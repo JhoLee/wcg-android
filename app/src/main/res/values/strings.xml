@@ -14,4 +14,10 @@
     <string name="GENERATE">만들기</string>
     <string name="need_permission">사진 및 파일을 저장하고 읽기 위하여 접근 권한이 필요합니다.</string>
     <string name="permission_setting"><![CDATA[[설정] > [권한] 에서 권한을 허용할 수 있습니다.]]></string>
+    <string name="textView_font">Font</string>
+    <string name="textView_backgroundColor">Back</string>
+    <string name="textView_backgroundColorContent">white</string>
+    <string name="textView_title_content">title_example</string>
+    <string name="textView_backgroundColor_content">white</string>
+    <string name="textView_font_content">default</string>
 </resources>
