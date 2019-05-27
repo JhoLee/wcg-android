@@ -1,4 +1,4 @@
-package me.jho.wcg.fragment;
+package me.jho.wcg.wordcloud;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
@@ -23,16 +25,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -41,8 +48,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.jho.wcg.R;
-import me.jho.wcg.api.WcgRetrofit;
-import me.jho.wcg.api.WcgService;
+import me.jho.wcg.wordcloud.api.WcgRetrofit;
+import me.jho.wcg.wordcloud.api.WcgService;
+import me.jho.wcg.db.SQLiteHelper;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -60,6 +68,8 @@ public class WordCloudFragment extends Fragment {
     Context wordCloudContext;
     Activity wordCloudActivity;
 
+    @BindView(R.id.button_unset_maskImage)
+    Button unsetMaskImageButton;
     @BindView(R.id.button_maskImage)
     Button maskImageButton;
 
@@ -80,6 +90,8 @@ public class WordCloudFragment extends Fragment {
 
 
     private File tempFile;
+    SQLiteDatabase db;
+
     private AppCompatDialog progressDialog;
 
 
@@ -94,6 +106,10 @@ public class WordCloudFragment extends Fragment {
         unbinder = ButterKnife.bind(this, wordCloudView);
 
         tedPermission();
+
+        db = wordCloudActivity.openOrCreateDatabase("wordcloud.db", Context.MODE_PRIVATE, null);
+        db.execSQL("create table if not exists tb ( ablob)");
+        imageView.setVisibility(View.GONE);
 
         return wordCloudView;
     }
@@ -140,6 +156,7 @@ public class WordCloudFragment extends Fragment {
                 }
 
                 setImage(imageView, tempFile);
+                imageView.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -189,32 +206,68 @@ public class WordCloudFragment extends Fragment {
     }
     // [END tedPermission()]
 
-    // [START goToAlbum]
+    // [START setMaskImage]
     @OnClick(R.id.button_maskImage)
-    public void goToAlbum() {
+    public void setMaskImage() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
-    // [END goToAlbum]
+    // [END setMaskImage]
+
+    // [START unSetMaskImage]
+    @OnClick(R.id.button_unset_maskImage)
+    public void unSetMaskImage() {
+        tempFile = null;
+        imageView.setImageResource(0);
+        imageView.setVisibility(View.GONE);
+
+    }
+    // [END unSetMaskImage]
 
 
     // [START generateWordCloud]
-    @SuppressLint("LongLogTag")
     @OnClick(R.id.button_generate)
     public void generateWordCloud() {
-
         // [START get_data_from_form]
         String title = String.valueOf(titleEditText.getText());
         String data = String.valueOf(dataEditText.getText());
         String font = "NanumGothicBold"; // default..
-        File maskImage = tempFile;
 //        String font = String.valueOf(fontEditText.getText());
-
+        File mask_image = tempFile;
         // [END get_data_from_form]
 
+        // [START form_validation]
+        InputMethodManager imm = (InputMethodManager) wordCloudActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (title.equals("")) {
+            Toast.makeText(wordCloudContext, "Please enter the title!", Toast.LENGTH_SHORT).show();
+            titleEditText.requestFocus();
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            return;
+        }
+        if (data.equals("")) {
+            Toast.makeText(wordCloudContext, "Please put the data to generate!", Toast.LENGTH_SHORT).show();
+            titleEditText.requestFocus();
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            return;
+        }
+        if (font.equals("")) {
+            Toast.makeText(wordCloudContext, "Please select the font!", Toast.LENGTH_SHORT).show();
+            titleEditText.requestFocus();
+            return;
+        }
+        // [END form_validation]
+
+
+        generateWordCloud(title, data, font, mask_image);
+
+    }
+
+    @SuppressLint("LongLogTag")
+    public void generateWordCloud(final String title, final String data, final String font, final File maskImage) {
+
+
         // [START validate_form]
-        // todo: 언젠가 여기에 입력되지 않은 데이타 입력하라고 알려주는 소스 추가..
         if (title.equals("") || data.equals("") || font.equals("")) {
             // Do nothing.
             Log.d("generateWordCloud", "FormValidation failed.");
@@ -237,8 +290,8 @@ public class WordCloudFragment extends Fragment {
         }
         // [END prepare_multi_part]
 
-        progressON(wordCloudActivity,null);
         //[START loading]
+        progressON(wordCloudActivity, null);
 
         // [START send_data_and_receive]
         WcgService wcgService = WcgRetrofit.getWcgRetrofit().create(WcgService.class);
@@ -255,6 +308,7 @@ public class WordCloudFragment extends Fragment {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d("generateWordCloud:onResponse", response.body().toString());
                 /* TODO: test setting image */
+                saveResult(title, data, font, maskImage, response.body());
                 setImage(imageView, response.body());
                 /* */
             }
@@ -266,7 +320,6 @@ public class WordCloudFragment extends Fragment {
             }
         });
         // [END send_data_and_receive]
-
 
 
         // TODO: Receive result image from server
@@ -313,6 +366,98 @@ public class WordCloudFragment extends Fragment {
     }
     // [END getRealPathFromUri]
 
+    // [START saveResult]
+    public void saveResult(String title, String data, String font, @Nullable File mask_image, @Nullable ResponseBody wordCloud) {
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(wordCloudContext, SQLiteHelper.NAME, null, SQLiteHelper.VERSION);
+
+
+        FileInputStream fis = null;
+        ByteArrayOutputStream bos = null;
+
+        // [START read_maskImage]
+        byte[] maskImageByte = null;
+        if (mask_image != null) {
+            try {
+                fis = new FileInputStream(mask_image);
+                byte[] fileBuffer = new byte[1024];
+                bos = new ByteArrayOutputStream();
+                for (int len = fis.read(fileBuffer); len != -1; len = fis.read(fileBuffer)) {
+                    bos.write(fileBuffer, 0, len);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
+            maskImageByte = bos != null ? bos.toByteArray() : null;
+        }
+        // [END read_maskImage]
+
+
+        // [START read_wordCloud]
+        byte[] wordCloudByte = null;
+        if (wordCloud != null) {
+            BufferedInputStream bis = new BufferedInputStream(wordCloud.byteStream());
+            bos = null;
+            try {
+
+
+                byte[] buffer = new byte[1024];
+                bos = new ByteArrayOutputStream();
+                for (int len = bis.read(buffer); len != -1; len = bis.read(buffer)) {
+
+                    bos.write(buffer, 0, len);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            wordCloudByte = bos != null ? bos.toByteArray() : null;
+        }
+        // [END read_wordCloud]
+
+
+        db = sqLiteHelper.getWritableDatabase();
+
+        SQLiteStatement sql = db.compileStatement("INSERT INTO wordcloud VALUES(null, ?, ?, ?, ?, ?);");
+
+        sql.bindString(1, title);
+        sql.bindString(2, data);
+        sql.bindString(3, font);
+        if (maskImageByte != null)
+            sql.bindBlob(4, maskImageByte);
+        if (wordCloudByte != null)
+            sql.bindBlob(5, wordCloudByte);
+
+        long rowId = sql.executeInsert();
+        Log.d("saveResult", "Result saved into DB. (row: + " + rowId + ")");
+        showResult(rowId);
+
+    }
+    // [END saveResult]
+
+    // [START selectResult]
+    public Cursor selectResult(int id) {
+        String sql = "SELECT * FROM wordcloud WHERE _id = " + id + ";";
+        Cursor result = db.rawQuery(sql, null);
+
+        return result;
+
+    }
+    // [END selectResult]
+
+    // [START showResult]
+    public void showResult(long rowId) {
+        Intent resultIntent = new Intent(
+                wordCloudContext,
+                ResultActivity.class
+        );
+
+        resultIntent.putExtra("rowId", rowId);
+
+        startActivity(resultIntent);
+    }
+    // [END showResult]
+
 
     public void progressON(Activity activity, String message) {
 
@@ -350,6 +495,7 @@ public class WordCloudFragment extends Fragment {
 
 
     }
+
     public void progressSET(String message) {
 
         if (progressDialog == null || !progressDialog.isShowing()) {
@@ -362,10 +508,12 @@ public class WordCloudFragment extends Fragment {
         }
 
     }
+
     public void progressOFF() {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }
+
 
 }

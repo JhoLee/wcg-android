@@ -1,4 +1,4 @@
-package me.jho.wcg.api;
+package me.jho.wcg.wordcloud.api;
 
 
 import okhttp3.MultipartBody;

@@ -1,4 +1,4 @@
-package me.jho.wcg.fragment;
+package me.jho.wcg.gallery;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,20 +12,23 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.jho.wcg.R;
 
-public class InfoFragment extends Fragment {
-
+public class GalleryFragment extends Fragment {
     private Unbinder unbinder;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View infoView = inflater.inflate(R.layout.fragment_menu2, container, false);
-        unbinder = ButterKnife.bind(this, infoView);
+        View galleryView = inflater.inflate(R.layout.fragment_menu2, container, false);
+        unbinder = ButterKnife.bind(this, galleryView);
 
-        return infoView;
+
+        return galleryView;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 }
