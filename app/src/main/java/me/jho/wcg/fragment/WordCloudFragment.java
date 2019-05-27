@@ -70,6 +70,8 @@ public class WordCloudFragment extends Fragment {
     Context wordCloudContext;
     Activity wordCloudActivity;
 
+    @BindView(R.id.button_unset_maskImage)
+    Button unsetMaskImageButton;
     @BindView(R.id.button_maskImage)
     Button maskImageButton;
 
@@ -109,6 +111,7 @@ public class WordCloudFragment extends Fragment {
 
         db = wordCloudActivity.openOrCreateDatabase("wordcloud.db", Context.MODE_PRIVATE, null);
         db.execSQL("create table if not exists tb ( ablob)");
+        imageView.setVisibility(View.GONE);
 
         return wordCloudView;
     }
@@ -155,6 +158,7 @@ public class WordCloudFragment extends Fragment {
                 }
 
                 setImage(imageView, tempFile);
+                imageView.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -204,14 +208,24 @@ public class WordCloudFragment extends Fragment {
     }
     // [END tedPermission()]
 
-    // [START goToAlbum]
+    // [START setMaskImage]
     @OnClick(R.id.button_maskImage)
-    public void goToAlbum() {
+    public void setMaskImage() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
-    // [END goToAlbum]
+    // [END setMaskImage]
+
+    // [START unSetMaskImage]
+    @OnClick(R.id.button_unset_maskImage)
+    public void unSetMaskImage() {
+        tempFile = null;
+        imageView.setImageResource(0);
+        imageView.setVisibility(View.GONE);
+
+    }
+    // [END unSetMaskImage]
 
 
     // [START generateWordCloud]
