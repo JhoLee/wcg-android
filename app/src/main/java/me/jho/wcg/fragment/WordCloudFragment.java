@@ -151,6 +151,9 @@ public class WordCloudFragment extends Fragment {
         Bitmap originalBmp = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
         imageView.setImageBitmap(originalBmp);
         Log.d("setImage", "Image set.");
+
+        progressOFF();
+        //end Loading
     }
 
     private void setImage(ImageView imageView, ResponseBody responseBody) {
