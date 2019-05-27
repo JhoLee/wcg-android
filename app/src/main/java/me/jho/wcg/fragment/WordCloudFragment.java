@@ -26,10 +26,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -223,6 +225,28 @@ public class WordCloudFragment extends Fragment {
         File mask_image = tempFile;
         // [END get_data_from_form]
 
+        // [START form_validation]
+        InputMethodManager imm = (InputMethodManager) wordCloudActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (title.equals("")) {
+            Toast.makeText(wordCloudContext, "Please enter the title!", Toast.LENGTH_SHORT).show();
+            titleEditText.requestFocus();
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            return;
+        }
+        if (data.equals("")) {
+            Toast.makeText(wordCloudContext, "Please put the data to generate!", Toast.LENGTH_SHORT).show();
+            titleEditText.requestFocus();
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            return;
+        }
+        if (font.equals("")) {
+            Toast.makeText(wordCloudContext, "Please select the font!", Toast.LENGTH_SHORT).show();
+            titleEditText.requestFocus();
+            return;
+        }
+        // [END form_validation]
+
+
         generateWordCloud(title, data, font, mask_image);
 
     }
@@ -232,7 +256,6 @@ public class WordCloudFragment extends Fragment {
 
 
         // [START validate_form]
-        // todo: 언젠가 여기에 입력되지 않은 데이타 입력하라고 알려주는 소스 추가..
         if (title.equals("") || data.equals("") || font.equals("")) {
             // Do nothing.
             Log.d("generateWordCloud", "FormValidation failed.");
@@ -336,42 +359,48 @@ public class WordCloudFragment extends Fragment {
         SQLiteHelper sqLiteHelper = new SQLiteHelper(wordCloudContext, SQLiteHelper.NAME, null, SQLiteHelper.VERSION);
 
 
-        // [START read_maskImage]
         FileInputStream fis = null;
         ByteArrayOutputStream bos = null;
-        try {
-            fis = new FileInputStream(mask_image);
-            byte[] fileBuffer = new byte[1024];
-            bos = new ByteArrayOutputStream();
-            for (int len = fis.read(fileBuffer); len != -1; len = fis.read(fileBuffer)) {
-                bos.write(fileBuffer, 0, len);
+
+        // [START read_maskImage]
+        byte[] maskImageByte = null;
+        if (mask_image != null) {
+            try {
+                fis = new FileInputStream(mask_image);
+                byte[] fileBuffer = new byte[1024];
+                bos = new ByteArrayOutputStream();
+                for (int len = fis.read(fileBuffer); len != -1; len = fis.read(fileBuffer)) {
+                    bos.write(fileBuffer, 0, len);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e2) {
+                e2.printStackTrace();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e2) {
-            e2.printStackTrace();
+            maskImageByte = bos != null ? bos.toByteArray() : null;
         }
-        byte[] maskImageByte = bos != null ? bos.toByteArray() : null;
         // [END read_maskImage]
 
 
         // [START read_wordCloud]
-        assert wordCloud != null;
-        BufferedInputStream bis = new BufferedInputStream(wordCloud.byteStream());
-        bos = null;
-        try {
+        byte[] wordCloudByte = null;
+        if (wordCloud != null) {
+            BufferedInputStream bis = new BufferedInputStream(wordCloud.byteStream());
+            bos = null;
+            try {
 
 
-            byte[] buffer = new byte[1024];
-            bos = new ByteArrayOutputStream();
-            for (int len = bis.read(buffer); len != -1; len = bis.read(buffer)) {
+                byte[] buffer = new byte[1024];
+                bos = new ByteArrayOutputStream();
+                for (int len = bis.read(buffer); len != -1; len = bis.read(buffer)) {
 
-                bos.write(buffer, 0, len);
+                    bos.write(buffer, 0, len);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            wordCloudByte = bos != null ? bos.toByteArray() : null;
         }
-        byte[] wordCloudByte = bos != null ? bos.toByteArray() : null;
         // [END read_wordCloud]
 
 
