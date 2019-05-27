@@ -1,10 +1,12 @@
 package me.jho.wcg.gallery;
 
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,6 +45,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     // [START onBindViewHolder]
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+
+        byte[] wordCloudByte = galleryArrayList.get(position).getWordCloudByte();
+        viewHolder.wordCloudImageView.setImageBitmap(BitmapFactory.decodeByteArray(wordCloudByte, 0, wordCloudByte.length));
         viewHolder.titleTextView.setText(galleryArrayList.get(position).getTitle());
         viewHolder.fontTextView.setText(galleryArrayList.get(position).getFont());
         viewHolder.backgroundColorTextView.setText(galleryArrayList.get(position).getBackgroundColor());
@@ -60,6 +65,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     // [START ViewHolder]
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.imageView_card)
+        public ImageView wordCloudImageView;
         @BindView(R.id.textView_card_title_content)
         public TextView titleTextView;
         @BindView(R.id.textView_card_font_content)

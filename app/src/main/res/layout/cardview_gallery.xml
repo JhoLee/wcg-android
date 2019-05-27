@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_gravity="center"
-    android:layout_margin="8dp"
-
-    app:cardCornerRadius="4dp">
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,31 +14,35 @@
 
         <ImageView
             android:id="@+id/imageView_card"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
             android:src="@drawable/ic_gallery"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+
+            app:layout_constraintRight_toLeftOf="@+id/textView_card_font"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView_card_title"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="@dimen/gallery_content_height"
             android:gravity="right"
             android:text="@string/textView_title"
-            android:textSize="20sp"
+            android:textSize="@dimen/gallery_title_size"
             app:layout_constraintBottom_toTopOf="@+id/textView_card_font"
+
             app:layout_constraintLeft_toRightOf="@+id/imageView_card"
+            app:layout_constraintRight_toLeftOf="@+id/textView_card_title_content"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView_card_title_content"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/gallery_content_height"
             android:gravity="left"
             android:text="@string/textView_title_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/gallery_content_size"
             app:layout_constraintBottom_toTopOf="@+id/textView_card_font"
             app:layout_constraintLeft_toRightOf="@id/textView_card_title"
             app:layout_constraintRight_toRightOf="parent"
@@ -47,22 +50,23 @@
 
         <TextView
             android:id="@+id/textView_card_font"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="@dimen/gallery_content_height"
             android:gravity="right"
             android:text="@string/textView_font"
-            android:textSize="20sp"
+            android:textSize="@dimen/gallery_title_size"
             app:layout_constraintBottom_toTopOf="@id/textView_card_backgroundColor"
             app:layout_constraintLeft_toRightOf="@+id/imageView_card"
+            app:layout_constraintRight_toLeftOf="@+id/textView_card_font_content"
             app:layout_constraintTop_toBottomOf="@+id/textView_card_title" />
 
         <TextView
             android:id="@+id/textView_card_font_content"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:gravity="left"
+            android:layout_height="@dimen/gallery_content_height"
+            android:gravity="start"
             android:text="@string/textView_font_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/gallery_content_size"
             app:layout_constraintBottom_toTopOf="@+id/textView_card_backgroundColor_content"
             app:layout_constraintLeft_toRightOf="@id/textView_card_font"
             app:layout_constraintRight_toRightOf="parent"
@@ -70,22 +74,23 @@
 
         <TextView
             android:id="@+id/textView_card_backgroundColor"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="@dimen/gallery_content_height"
             android:gravity="right"
             android:text="@string/textView_backgroundColor"
-            android:textSize="20sp"
+            android:textSize="@dimen/gallery_title_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/imageView_card"
+            app:layout_constraintRight_toLeftOf="@+id/textView_card_backgroundColor_content"
             app:layout_constraintTop_toBottomOf="@id/textView_card_font" />
 
         <TextView
             android:id="@+id/textView_card_backgroundColor_content"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/gallery_content_height"
             android:gravity="left"
             android:text="@string/textView_backgroundColor_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/gallery_content_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/textView_card_backgroundColor"
             app:layout_constraintRight_toRightOf="parent"

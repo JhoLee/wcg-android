@@ -1,23 +1,35 @@
 package me.jho.wcg.gallery;
 
 public class GalleryVO {
+    long id;
     String title;
     String font;
     String backgroundColor;
-    long id;
+    byte[] wordCloudByte;
 
     public GalleryVO() {
         title = "";
         font = "";
         backgroundColor = "";
         id = 0;
+        wordCloudByte = new byte[0];
     }
 
-    public GalleryVO(long id, String title, String font, String backgroundColor) {
+    public GalleryVO(long id, String title, String font, String backgroundColor, byte[] wordCloudByte) {
+
         this.id = id;
         this.title = title;
         this.font = font;
         this.backgroundColor = backgroundColor;
+        this.wordCloudByte = wordCloudByte;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -44,11 +56,11 @@ public class GalleryVO {
         this.backgroundColor = backgroundColor;
     }
 
-    public long getId() {
-        return id;
+    public byte[] getWordCloudByte() {
+        return wordCloudByte;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setWordCloudByte(byte[] wordCloudByte) {
+        this.wordCloudByte = wordCloudByte;
     }
 }
