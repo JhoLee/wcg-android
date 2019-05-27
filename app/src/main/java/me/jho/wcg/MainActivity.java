@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.jho.wcg.fragment.InfoFragment;
-import me.jho.wcg.fragment.WordCloudFragment;
-import me.jho.wcg.fragment.GalleryFragment;
+import me.jho.wcg.info.InfoFragment;
+import me.jho.wcg.wordcloud.WordCloudFragment;
+import me.jho.wcg.gallery.GalleryFragment;
 
 public class MainActivity extends AppCompatActivity {
 

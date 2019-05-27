@@ -1,9 +1,8 @@
-package me.jho.wcg.fragment;
+package me.jho.wcg.wordcloud;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -37,7 +36,6 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,8 +48,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.jho.wcg.R;
-import me.jho.wcg.api.WcgRetrofit;
-import me.jho.wcg.api.WcgService;
+import me.jho.wcg.wordcloud.api.WcgRetrofit;
+import me.jho.wcg.wordcloud.api.WcgService;
 import me.jho.wcg.db.SQLiteHelper;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
