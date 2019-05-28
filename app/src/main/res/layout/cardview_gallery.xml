@@ -96,6 +96,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_card_font_content" />
 
+        <TextView
+            android:id="@+id/textView_card_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="0sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

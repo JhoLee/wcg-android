@@ -51,14 +51,17 @@ public class GalleryFragment extends Fragment {
 
         db = galleryActivity.openOrCreateDatabase(SQLiteHelper.NAME, Context.MODE_PRIVATE, null);
 
-        galleryArrayList = selectAllData();
+        loadGalleryList();
 
-        galleryRecyclerView.setHasFixedSize(true);
-        galleryRecyclerView.setLayoutManager(new LinearLayoutManager(galleryContext));
-        galleryAdapter = new GalleryAdapter(galleryArrayList);
-        galleryRecyclerView.setAdapter(galleryAdapter);
 
         return galleryView;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadGalleryList();
     }
 
     @Override
@@ -78,7 +81,7 @@ public class GalleryFragment extends Fragment {
         results.moveToFirst();
 
         while (!results.isAfterLast()) {
-            long _id = results.getLong(0);
+            int _id = results.getInt(0);
             String title = results.getString(1);
             String font = results.getString(3);
             byte[] wordCloudByte = results.getBlob(5);
@@ -94,4 +97,14 @@ public class GalleryFragment extends Fragment {
     }
     // [END selectAllData]
 
+    // [START load_gallery_list]
+    private void loadGalleryList() {
+        galleryArrayList = selectAllData();
+
+        galleryRecyclerView.setHasFixedSize(true);
+        galleryRecyclerView.setLayoutManager(new LinearLayoutManager(galleryContext));
+        galleryAdapter = new GalleryAdapter(galleryArrayList);
+        galleryRecyclerView.setAdapter(galleryAdapter);
+    }
+    // [END load_gallery_list]
 }

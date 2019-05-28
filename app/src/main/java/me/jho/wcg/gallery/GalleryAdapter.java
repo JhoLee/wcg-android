@@ -56,6 +56,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         viewHolder.titleTextView.setText(galleryArrayList.get(position).getTitle());
         viewHolder.fontTextView.setText(galleryArrayList.get(position).getFont());
         viewHolder.backgroundColorTextView.setText(galleryArrayList.get(position).getBackgroundColor());
+        viewHolder.idTextView.setText(String.valueOf(galleryArrayList.get(position).getId()));
     }
     // [END onBindViewHolder]
 
@@ -78,6 +79,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         public TextView fontTextView;
         @BindView(R.id.textView_card_backgroundColor_content)
         public TextView backgroundColorTextView;
+        @BindView(R.id.textView_card_id)
+        public TextView idTextView;
 
 
         public ViewHolder(View view) {
@@ -92,7 +95,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                     Intent resultIntent = new Intent(v.getContext(), ResultActivity.class);
                     Log.d("ViewHolder:onClick", "position: " + String.valueOf(getAdapterPosition()));
 
-                    resultIntent.putExtra("rowId", (long) getAdapterPosition());
+                    resultIntent.putExtra("id", Long.valueOf((String) idTextView.getText()));
 
                     v.getContext().startActivity(resultIntent);
 

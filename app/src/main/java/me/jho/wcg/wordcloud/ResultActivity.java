@@ -1,7 +1,6 @@
 package me.jho.wcg.wordcloud;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,8 +18,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -32,8 +31,10 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jho.wcg.MainActivity;
 import me.jho.wcg.R;
 import me.jho.wcg.db.SQLiteHelper;
+import me.jho.wcg.gallery.GalleryFragment;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -60,6 +61,7 @@ public class ResultActivity extends AppCompatActivity {
     private Cursor result;
     private AppCompatDialog progressDialog;
 
+    private long id;
     private String title;
     private String data;
     private String font;
@@ -79,10 +81,9 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        long rowId = Objects.requireNonNull(intent.getExtras()).getLong("rowId") + 1;
-        Log.d("ResultActivity:onCreate", String.valueOf(rowId));
+        id = Objects.requireNonNull(intent.getExtras()).getLong("id");
 
-        result = selectResult(rowId);
+        result = selectResult(id);
 
         ButterKnife.bind(this);
 
@@ -122,9 +123,8 @@ public class ResultActivity extends AppCompatActivity {
     // [START saveImage]
     @OnClick(R.id.button_save)
     public void saveImage() {
-        progressON(this, null);
         saveImage(wordCloudBitmap, "wordcloud", title);
-        progressOFF();
+        Toast.makeText(this, "Image saved to gallery!", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -159,6 +159,35 @@ public class ResultActivity extends AppCompatActivity {
     }
     // [END saveImage]
 
+    // [START shareImage]
+    @OnClick(R.id.button_share)
+    public void shareButtonClicked() {
+        Toast.makeText(this, "Share function has not implemented yet...", Toast.LENGTH_SHORT).show();
+    }
+    // [END shareImage]
+
+
+    // [START removeImage]
+    private int removeImage(long id) {
+        return db.delete("wordcloud", "_id=" + id, null);
+
+    }
+    // [END removeImage]
+
+
+    // [START remove_button_clicked]
+    @OnClick(R.id.button_remove)
+    public void removeButtonClicked() {
+        int result = removeImage(id);
+        if (result > 0) {
+            Toast.makeText(this, "Image removed!", Toast.LENGTH_LONG).show();
+            finish();
+        } else {
+            Toast.makeText(this, "Image removing failed..", Toast.LENGTH_LONG).show();
+        }
+
+    }
+    // [END remove_button_clicked]
 
     public void progressON(Activity activity, String message) {
 
