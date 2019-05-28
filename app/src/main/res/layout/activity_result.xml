@@ -1,104 +1,216 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/imageView_result"
+        android:layout_width="400dp"
+        android:layout_height="280dp"
+        android:contentDescription="WordCloud Image"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout_button"
 
-        <ImageView
-            android:id="@+id/imageView_result"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:contentDescription="WordCloud Image"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout_resultTitle"
+        app:layout_constraintTop_toBottomOf="@id/imageView_result">
 
         <Button
             android:id="@+id/button_save"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Save Image"
-            app:layout_constraintBottom_toTopOf="@id/constraintLayout_resultTitle"
+            android:layout_marginHorizontal="6dp"
+            android:drawableStart="@android:drawable/ic_menu_save"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView_result" />
+            app:layout_constraintRight_toLeftOf="@+id/button_share"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout_resultTitle"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/button_share"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/constraintLayout_resultData"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginHorizontal="6dp"
+            android:drawableStart="@android:drawable/ic_menu_share"
+            android:text="Share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/button_save"
+            app:layout_constraintRight_toLeftOf="@+id/button_remove"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_remove"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="6dp"
+            android:drawableStart="@android:drawable/ic_menu_delete"
+            android:text="Remove"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/button_share"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_save">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView_resultTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/textView_title"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/textView_resultTitleContent"
-                app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView_resultTitleContent"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:hint="@string/ENTER_TITLE_HERE"
-                android:inputType="text"
-                android:maxLength="30"
-                android:maxLines="1"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/textView_resultTitle"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout_resultData"
-            android:layout_width="match_parent"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout_resultTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout_resultData"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout_button">
+
+        <TextView
+            android:id="@+id/textView_resultTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintLayout_resultTitle">
+            android:gravity="center"
+            android:text="@string/textView_title"
 
-            <TextView
-                android:id="@+id/textView_resultData"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/textView_data"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/textView_resultDataContent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/textView_resultTitleContent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_resultTitleContent"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:hint="@string/ENTER_TITLE_HERE"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/textView_resultTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout_resultData"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout_font"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout_resultTitle">
+
+        <TextView
+            android:id="@+id/textView_resultData"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:gravity="center"
+            android:text="@string/textView_data"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/scrollView_resultDataContent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/scrollView_resultDataContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/textView_resultData"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textView_resultDataContent"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:hint="@string/ENTER_DATA_HERE"
-                android:inputType="textMultiLine"
-                android:maxHeight="500dp"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/textView_resultData"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
+        </ScrollView>
     </android.support.constraint.ConstraintLayout>
 
-</ScrollView>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout_font"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout_backgroundColor"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout_resultData">
+
+        <TextView
+            android:id="@+id/textView_resultFont"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Font"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/textView_resultFontContent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_resultFontContent"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/textView_resultFont"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout_backgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout_font">
+
+        <TextView
+            android:id="@+id/textView_resultBackgroundColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="BackColor"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/textView_resultBackgroundColorContent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_resultBackgroundColorContent"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/textView_resultBackgroundColor"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,12 +37,23 @@ import me.jho.wcg.db.SQLiteHelper;
 
 public class ResultActivity extends AppCompatActivity {
 
+    @BindView(R.id.imageView_result)
+    ImageView resultImageView;
     @BindView(R.id.textView_resultTitleContent)
     TextView resultTitleTextView;
     @BindView(R.id.textView_resultDataContent)
     TextView resultDataTextView;
-    @BindView(R.id.imageView_result)
-    ImageView resultImageView;
+    @BindView(R.id.textView_resultFontContent)
+    TextView resultFontTextView;
+    @BindView(R.id.textView_resultBackgroundColorContent)
+    TextView resultBackgroundTextView;
+
+    @BindView(R.id.button_save)
+    Button saveButton;
+    @BindView(R.id.button_share)
+    Button shareButton;
+    @BindView(R.id.button_remove)
+    Button removeButton;
 
     private SQLiteDatabase db;
 
@@ -83,6 +95,8 @@ public class ResultActivity extends AppCompatActivity {
 
             resultTitleTextView.setText(title);
             resultDataTextView.setText(data);
+            resultFontTextView.setText(font);
+            resultBackgroundTextView.setText("white");
             wordCloudBitmap = BitmapFactory.decodeByteArray(wordCloudByte, 0, wordCloudByte.length);
             resultImageView.setImageBitmap(wordCloudBitmap);
 
