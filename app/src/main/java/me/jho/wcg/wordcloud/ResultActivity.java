@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,7 +67,8 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        Long rowId = intent.getExtras().getLong("rowId");
+        long rowId = Objects.requireNonNull(intent.getExtras()).getLong("rowId") + 1;
+        Log.d("ResultActivity:onCreate", String.valueOf(rowId));
 
         result = selectResult(rowId);
 

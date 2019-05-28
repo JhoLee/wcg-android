@@ -1,8 +1,11 @@
 package me.jho.wcg.gallery;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +17,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.jho.wcg.MainActivity;
 import me.jho.wcg.R;
+import me.jho.wcg.wordcloud.ResultActivity;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
     View galleryAdapterView;
@@ -80,8 +85,24 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
             ButterKnife.bind(this, view);
 
+            view.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent resultIntent = new Intent(v.getContext(), ResultActivity.class);
+                    Log.d("ViewHolder:onClick", "position: " + String.valueOf(getAdapterPosition()));
+
+                    resultIntent.putExtra("rowId", (long) getAdapterPosition());
+
+                    v.getContext().startActivity(resultIntent);
+
+
+                }
+            });
+
 
         }
+
     }
     // [END ViewHolder]
 
