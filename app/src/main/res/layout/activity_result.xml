@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/imageView_result"
-        android:layout_width="400dp"
-        android:layout_height="280dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:contentDescription="WordCloud Image"
         app:layout_constraintBottom_toTopOf="@id/constraintLayout_button"
 
