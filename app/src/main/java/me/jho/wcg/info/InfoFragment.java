@@ -15,14 +15,16 @@ import me.jho.wcg.R;
 public class InfoFragment extends Fragment {
 
     private Unbinder unbinder;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View infoView = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View infoView = inflater.inflate(R.layout.fragment_info, container, false);
         unbinder = ButterKnife.bind(this, infoView);
 
         return infoView;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
