@@ -51,23 +51,10 @@ public class GalleryFragment extends Fragment {
 
         db = galleryActivity.openOrCreateDatabase(SQLiteHelper.NAME, Context.MODE_PRIVATE, null);
 
-        // [START set_data_into_list]
         galleryArrayList = selectAllData();
-        // [END set_data_into_list]
-//      // [START set_data_into_list]
-//        galleryArrayList = new ArrayList<>();
-//        /* TODO: TEST CODE */
-//        for (int i = 0; i < 15; i++) {
-//            galleryArrayList.add(new GalleryVO(i, "title" + i, "default", "white"));
-//        }
-//        /* */
-//        // [END set_data_into_list]
 
         galleryRecyclerView.setHasFixedSize(true);
-
-        //
         galleryRecyclerView.setLayoutManager(new LinearLayoutManager(galleryContext));
-        //
         galleryAdapter = new GalleryAdapter(galleryArrayList);
         galleryRecyclerView.setAdapter(galleryAdapter);
 
