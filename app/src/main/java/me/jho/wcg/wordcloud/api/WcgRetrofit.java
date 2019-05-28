@@ -20,8 +20,8 @@ public class WcgRetrofit {
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
             httpClientBuilder.addInterceptor(logging);
             OkHttpClient httpClient = httpClientBuilder
-                    .connectTimeout(2, TimeUnit.MINUTES)
-                    .readTimeout(1, TimeUnit.MINUTES)
+                    .connectTimeout(4, TimeUnit.MINUTES)
+                    .readTimeout(2, TimeUnit.MINUTES)
                     .build();
 
             mRetrofit = new Retrofit.Builder()
