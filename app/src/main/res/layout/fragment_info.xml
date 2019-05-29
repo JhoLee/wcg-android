@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Made by SangWon Park &amp; JooHo Lee"
-        android:textSize="35sp" />
+        android:layout_height="wrap_content"
+        android:text="Made by
+
+SangWon Park
+pphilio@naver.com
+
+JooHo Lee
+jooho_lee@outlook.kr"
+        android:id="@+id/text"
+        android:textAlignment="center"
+        android:textSize="35sp"
+        app:layout_constraintTop_toBottomOf="@+id/wcloud"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/wcloud"
+        android:layout_width="371dp"
+        android:layout_height="232dp"
+        app:srcCompat="@drawable/wcloud"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/text"/>
 
 </android.support.constraint.ConstraintLayout>
