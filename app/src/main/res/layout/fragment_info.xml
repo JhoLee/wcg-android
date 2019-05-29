@@ -5,32 +5,111 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Made by
-
-SangWon Park
-pphilio@naver.com
-
-JooHo Lee
-jooho_lee@outlook.kr"
-        android:id="@+id/text"
-        android:textAlignment="center"
-        android:textSize="35sp"
-        app:layout_constraintTop_toBottomOf="@+id/wcloud"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
     <ImageView
         android:id="@+id/wcloud"
-        android:layout_width="371dp"
-        android:layout_height="232dp"
-        app:srcCompat="@drawable/wcloud"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintBottom_toTopOf="constraintLayout_description"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/text"/>
+        app:srcCompat="@drawable/wcloud" />
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wcloud">
+
+        <TextView
+            android:id="@+id/textView_madeBy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text=" Made by..."
+            android:textSize="33sp"
+            app:layout_constraintBottom_toTopOf="@id/layout_sangwon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_sangwon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/layout_jooho"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_madeBy">
+
+            <TextView
+                android:id="@+id/textView_name_SangWon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:gravity="center"
+                android:text="SangWon Park"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@id/textView_mail_SangWon"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_mail_SangWon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_mail_outline_black_24dp"
+                android:text="pphilio@naver.com"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_name_SangWon" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_jooho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_sangwon">
+
+            <TextView
+                android:id="@+id/textView_name_JooHo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:gravity="center"
+                android:text="JooHo Lee"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@id/textView_mail_JooHo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_mail_JooHo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_mail_outline_black_24dp"
+                android:text="jooho_lee@outlook.kr"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_name_JooHo" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

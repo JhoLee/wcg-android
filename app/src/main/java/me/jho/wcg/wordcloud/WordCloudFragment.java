@@ -455,7 +455,7 @@ public class WordCloudFragment extends Fragment {
                 ResultActivity.class
         );
 
-        resultIntent.putExtra("rowId", rowId);
+        resultIntent.putExtra("id", rowId);
 
         startActivity(resultIntent);
     }
